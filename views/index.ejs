@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" href="./stylesheet/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <div class="content">
+        <% switch (mode) { %> 
+            <% case 'home': %> 
+              <%- include('partials/home') %>
+              <% break%> 
+            <% case 'categories': %> 
+              <%- include('partials/categories') %>
+              <% break %> 
+            <% case 'new': %> 
+              <%- include('partials/new') %> 
+              <% break %>
+          <% } %>          
+    </div>
+  </body>
+</html>
