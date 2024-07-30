@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Home</title>
+    <title><%= mode.charAt(0).toUpperCase() + mode.slice(1); %></title>
     <link rel="stylesheet" href="./stylesheet/styles.css" />
   </head>
   <body>
     <%- include('partials/nav') %>
     <div class="content">
-        <% switch (mode) { %> 
-            <% case 'home': %> 
-              <%- include('partials/home') %>
-              <% break%> 
-            <% case 'categories': %> 
-              <%- include('partials/categories') %>
-              <% break %> 
-            <% case 'new': %> 
-              <%- include('partials/new') %> 
-              <% break %>
-          <% } %>          
+      <% if (mode === "home") {%> <%- include('partials/home',data) %> <% } else if
+      (mode === "categories") {%> <%- include('partials/categories') %> <% }
+      else if (mode === "new") {%> <%- include('partials/new') %> <% }%>
     </div>
   </body>
 </html>

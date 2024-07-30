@@ -1,1 +1,39 @@
-<div>Home</div>
+<div class="home">
+  <div class="dashboard">
+    <h2>Dashboard</h2>
+    <div class="cards">
+      <div class="card">
+        <p>Total Games</p>
+        <h3><%= data.gamesNo.rows[0].count %></h3>
+        <a href="/categories/3">View All</a>
+      </div>
+      <div class="card">
+        <p>Number of genres</p>
+        <h3><%= data.genresNo.rows[0].count%></h3>
+        <a href="/categories/1">View</a>
+      </div>
+      <div class="card">
+        <p>Developers</p>
+        <h3><%= data.developersNo.rows[0].count%></h3>
+        <a href="/categories/2">View</a>
+      </div>
+    </div>
+    <div class="selection">
+      <h2>Selection</h2>
+      <div class="game-cards">
+        <% data.games.forEach(game => { %>
+        <div class="game-card">
+           
+          <div class="game-card-image">
+            <img src="<%= game.imageurl %>" alt="<%= game.name %>" />
+          </div>
+          <div class="game-card-content">
+            <h2><%= game.name %></h2>
+            <p><%= game.developer %></p>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</div>
