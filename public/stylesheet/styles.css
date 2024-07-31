@@ -98,6 +98,10 @@ body {
   margin: 1%;
   padding: 0.5rem;
 }
+.game-card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 .game-card-image {
   border-radius: 1rem;
 }
@@ -151,4 +155,69 @@ body {
   background-color: var(--background);
   padding: 1rem;
   border-radius: 0.5rem;
+}
+.card > a:hover {
+  background-color: var(--text);
+  color: var(--text-white);
+}
+
+/*Categories styling*/
+.categories {
+  margin: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: var(--background);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: var(--background);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.category > a {
+  text-decoration: none;
+  color: var(--text);
+  background-color: var(--background);
+  border: solid 0.2rem var(--secondary);
+  padding: 1rem;
+  border-radius: 0.7rem;
+}
+.category > a:hover {
+  background-color: var(--secondary);
+  color: var(--text-white);
+}
+/*All games styling*/
+.header-all {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+#search-input {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--secondary);
+  width: 20vw;
+}
+#search-button {
+  text-decoration: none;
+  color: var(--text);
+  background-color: var(--background);
+  border: solid 0.1rem var(--secondary);
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+#search-button:hover {
+  background-color: var(--secondary);
+  color: var(--text-white);
 }

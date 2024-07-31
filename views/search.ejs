@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search Results</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <div class="content">
+        <div class="game-cards">
+            <% results.forEach(game => { %>
+            <div class="game-card">
+              <div class="game-card-image">
+                <img src="<%= game.imageurl %>" alt="<%= game.name %>" />
+              </div>
+              <div class="game-card-content">
+                <h2><%= game.name %></h2>
+                <p><%= game.developer %></p>
+              </div>
+            </div>
+            <% }) %>
+          </div>
+    </div>
+  </body>
+</html>

@@ -2,14 +2,14 @@
 <html>
   <head>
     <title><%= mode.charAt(0).toUpperCase() + mode.slice(1); %></title>
-    <link rel="stylesheet" href="./stylesheet/styles.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css" />
   </head>
   <body>
     <%- include('partials/nav') %>
     <div class="content">
-      <% if (mode === "home") {%> <%- include('partials/home',data) %> <% } else if
-      (mode === "categories") {%> <%- include('partials/categories') %> <% }
-      else if (mode === "new") {%> <%- include('partials/new') %> <% }%>
+      <% if (mode === "home") {%> <%- include('partials/home',data) %> <% } else
+      if (mode === "categories") {%> <%- include('partials/categories', data) %>
+      <% } else if (mode === "new") {%> <%- include('partials/new') %> <% } else if (mode === "Games") { %> <%- include('partials/allGames', data) %> <% }%>
     </div>
   </body>
 </html>
