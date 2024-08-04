@@ -9,7 +9,8 @@
     <div class="content">
       <% if (mode === "home") {%> <%- include('partials/home',data) %> <% } else
       if (mode === "categories") {%> <%- include('partials/categories', data) %>
-      <% } else if (mode === "new") {%> <%- include('partials/new') %> <% } else if (mode === "Games") { %> <%- include('partials/allGames', data) %> <% }%>
+      <% } else if (mode === "Games") { %> <%- include('partials/allGames',
+      data) %> <% }%>
     </div>
   </body>
 </html>

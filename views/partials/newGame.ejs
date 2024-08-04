@@ -1,0 +1,60 @@
+<div class="newGame">
+  <h2>New Game</h2>
+  <% error.forEach((err)=>{%>
+  <div class="error"><%= err.msg%></div>
+  <%})%>
+  <p>
+    <strong
+      >If the genre or developer are not in these lists you should add them
+      first using the menu on your left!</strong
+    >
+  </p>
+  <form method="POST" action="/new/game" class="newGameForm">
+    <div class="input-group">
+      <label for="name">Game Name:</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div class="input-group">
+      <label for="description">Description:</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        required
+      />
+    </div>
+
+    <div class="input-group">
+      <label for="developer">Developer:</label>
+      <div class="select-dropdown">
+        <select id="developer" name="developer">
+          <% data.developers.forEach(developer => { %>
+          <option value="<%= developer.name %>"><%= developer.name %></option>
+          <% }) %>
+        </select>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="imageurl">Image URL:</label>
+      <input type="text" id="imageurl" name="imageurl" required />
+    </div>
+
+    <div class="input-group">
+      <label for="genre">Genre:</label>
+      <div class="dropdown">
+        <button type="button">Select Genres &#8675;</button>
+        <div class="dropdown-content">
+          <% data.genres.forEach(genre => { %>
+          <label
+            ><input type="checkbox" name="genres" value="<%= genre.name %>" />
+            <%= genre.name %></label
+          >
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <input type="submit" value="Submit" class="new-btn" />
+  </form>
+</div>

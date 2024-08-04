@@ -1,0 +1,14 @@
+<div class="newGame">
+    <h2>New Game</h2>
+    <% error.forEach((err)=>{%>
+    <div class="error"><%= err.msg%></div>
+    <%})%>
+  
+    <form method="POST" action="/new/developer" class="newGameForm">
+      <div class="input-group">
+        <label for="name">Developer Name:</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <input type="submit" value="Submit" class="new-btn" />
+    </form>
+  </div>

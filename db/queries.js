@@ -32,11 +32,74 @@ async function getDevelopers() {
 }
 
 async function searchGame(search) {
-    const { rows } = await pool.query(
-        `SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE UPPER(g.name) LIKE UPPER('%${search}%')`
+  const { rows } = await pool.query(
+    `SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE UPPER(g.name) LIKE UPPER('%${search}%')`
+  );
+  return rows;
+}
+
+async function getGenres() {
+  const { rows } = await pool.query("SELECT * FROM categories");
+  return rows;
+}
+async function getGenresNames() {
+  const { rows } = await pool.query("SELECT name FROM categories");
+  return rows.map((row) => row.name);
+}
+
+async function addGenre(name) {
+  await pool.query(`INSERT INTO categories (name) VALUES ($1)`, [name]);
+}
+
+async function getDevId(name) {
+  const { rows } = await pool.query(
+    `SELECT developer_id FROM developers WHERE name LIKE $1`,
+    [name]
+  );
+  return rows[0].developer_id;
+}
+
+async function getCatId(names) {
+  // var result = [];
+  // names.forEach(async (name) => {
+  //   let { rows } = await pool.query(
+  //     `SELECT category_id FROM categories WHERE name LIKE $1`,[name]
+  //   );
+  //   result= [...result, rows[0].category_id];
+  //   console.log(result);
+  // });
+
+  const result = await Promise.all(
+    names.map(async (name) => {
+      const { rows } = await pool.query(
+        `SELECT category_id FROM categories WHERE name LIKE $1`,
+        [name]
+      );
+      return rows[0].category_id;
+    })
+  );
+  return result;
+}
+
+async function addGame(game) {
+  const { rows } = await pool.query(
+    `INSERT INTO games (name, description, developer_id, imageurl) VALUES ('${game.name} ', '${game.description}', ${game.developer}, '${game.image}') RETURNING game_id`
+  );
+  console.log(rows);
+  const gameId = rows[0].game_id;
+  console.log(gameId);
+  game.genres.forEach(async (genre) => {
+    await pool.query(
+      `INSERT INTO games_categories (game_id, category_id) VALUES (${gameId}, ${genre})`
     );
-    return rows;
-    }
+  });
+}
+
+async function addDeveloper(name) {
+  await pool.query(`INSERT INTO developers (name) VALUES ($1)`, [name]);
+}
+
+
 
 module.exports = {
   getNumberGames,
@@ -45,5 +108,12 @@ module.exports = {
   getGames,
   getCategories,
   getDevelopers,
-  searchGame
+  searchGame,
+  getGenres,
+  getDevId,
+  getCatId,
+  addGame,
+  getGenresNames,
+  addGenre,
+  addDeveloper,
 };

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css" />
+
+    <title>New</title>
+</head>
+<body>
+    <%- include('partials/nav') %>
+    <div class="content">
+      <% if (mode === "game") {%> <%- include('partials/newGame',data) %> <% } else
+      if (mode === "genre") {%> <%- include('partials/newGenre', data) %>
+      <% } else if (mode === "developer") { %> <%- include('partials/newDeveloper', data) %> <% }%>
+</body>
+</html>
