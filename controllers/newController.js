@@ -29,16 +29,26 @@ exports.newGameControllerPost = [
         .render("new", { mode: "game", data, error: errors.array() });
     }
     const { name, description, developer, imageurl, genres } = req.body;
+    //if there's one element we need to convert it to an array
+    if (!Array.isArray(genres)) {
+      genresArray = [genres];
+    }
+    else {
+      genresArray = genres;
+    }
+    console.log(genresArray);
     const game = {
       name: name,
       description: description,
       developer: await db.getDevId(developer),
       image: imageurl,
-      genres: await db.getCatId(genres),
+      genres: await db.getCatId(genresArray),
     };
 
-    db.addGame(game);
-    res.send("yipee");
+    await db.addGame(game);
+
+    erro = { msg: "Game Added successfully" };
+    res.status(201).render("new", { mode: "game", data, error: [erro] });
   }),
 ];
 
@@ -48,9 +58,6 @@ exports.newGenreControllerGet = asyncHandler(async (req, res) => {
 
 const validateGenre = [
   body("name")
-    .trim()
-    .isAlpha()
-    .withMessage("Name must be alphabets only")
     .not()
     .isEmpty()
     .withMessage("Name cannot be empty")
@@ -98,9 +105,6 @@ exports.newDevControllerGet = asyncHandler(async (req, res) => {
 
 const validateDev = [
   body("name")
-    .trim()
-    .isAlpha()
-    .withMessage("Name must be alphabets only")
     .not()
     .isEmpty()
     .withMessage("Name cannot be empty")
