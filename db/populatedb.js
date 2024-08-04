@@ -50,7 +50,7 @@ INSERT INTO games_categories (game_id, category_id) VALUES (2, 1);
 async function main() {
   console.log("seeding...");
   const client = new Client({
-    connectionString: `postgresql://${process.env.ROLE}:${process.env.ROLE_PWD}@${process.env.HOST}/${process.env.DB_NAME}`,
+    connectionString: `postgresql://${process.env.ROLE}:${process.env.ROLE_PWD}@${process.env.DB_HOST}/${process.env.DB_NAME}`,
   });
   await client.connect();
   await client.query(SQL);
