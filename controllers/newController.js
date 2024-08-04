@@ -10,14 +10,9 @@ exports.newGameControllerGet = asyncHandler(async (req, res) => {
 });
 
 const validateGame = [
-  body("name")
-    .trim()
-    .isAlphanumeric()
-    .withMessage("Name must be alphanumerics only"),
-  body("description")
-    .trim()
-    .isAlphanumeric()
-    .withMessage("Description must be alphanumerics only"),
+  body("name").not().isEmpty().withMessage("Name cannot be empty"),
+
+  body("description").not().isEmpty().withMessage("Name cannot be empty"),
   body("imageurl").isURL().withMessage("Image must be a URL"),
 ];
 
