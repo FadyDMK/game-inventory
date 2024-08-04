@@ -17,6 +17,10 @@ app.use("/categories",categoriesRouter);
 
 app.use('/new',newRoute);
 
+app.use("*", (req, res) => {
+  res.render("404");
+})
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

@@ -4,7 +4,11 @@
     <% data.categories.forEach(genre => { %>
     <div class="category">
       <h3><%= genre.name %></h3>
-      <a href="/categories/genre/<%= genre.id %>">View</a>
+      <% if (data.category === "Developers") { %>
+      <a href="/categories/developer?id=<%= genre.id %>">View</a>
+      <% } else if (data.category === "Genres") { %>
+      <a href="/categories/genre?id=<%= genre.id %>">View</a>
+      <% } %>
     </div>
     <% }) %>
   </div>

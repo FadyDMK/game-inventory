@@ -130,7 +130,9 @@ exports.newDevControllerPost = [
     try {
       await db.addDeveloper(req.body.name);
       erro = { msg: "Developer Added successfully" };
-      res.status(201).render("new", { mode: "developer", data: [], error: [erro] });
+      res
+        .status(201)
+        .render("new", { mode: "developer", data: [], error: [erro] });
     } catch (err) {
       if (err.code === "23505") {
         erro = { msg: "This developer already exists" };

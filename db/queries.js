@@ -99,8 +99,14 @@ async function addDeveloper(name) {
   await pool.query(`INSERT INTO developers (name) VALUES ($1)`, [name]);
 }
 
-
-
+async function getGamesByCategory(id) {
+  const { rows } = await pool.query(`SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id JOIN games_categories AS gc ON g.game_id = gc.game_id WHERE gc.category_id = $1`, [id]);
+  return rows;
+}
+async function getGamesByDeveloper(id){
+  const { rows } = await pool.query(`SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE d.developer_id = $1`, [id]);
+  return rows;
+}
 module.exports = {
   getNumberGames,
   getNumberDevs,
@@ -116,4 +122,6 @@ module.exports = {
   getGenresNames,
   addGenre,
   addDeveloper,
+  getGamesByCategory,
+  getGamesByDeveloper,
 };
