@@ -133,4 +133,5 @@ module.exports = {
   addDeveloper,
   getGamesByCategory,
   getGamesByDeveloper,
+  getSomeGames,
 };
