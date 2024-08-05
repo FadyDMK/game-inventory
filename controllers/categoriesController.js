@@ -26,11 +26,9 @@ exports.allGamesControllerGet = asyncHandler(async (req, res) => {
 });
 exports.genreGamesControllerGet = asyncHandler(async (req, res) => {
   const results = await db.getGamesByCategory(req.query.id);
-  console.log("Query:", req.query);
   res.render("search", { results });
 });
 exports.developerGamesControllerGet = asyncHandler(async (req, res) => {
   const results = await db.getGamesByDeveloper(req.query.id);
-  console.log("Query:", req.query);
   res.render("search", { results });
 });

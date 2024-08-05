@@ -86,9 +86,7 @@ async function addGame(game) {
     `INSERT INTO games (name, description, developer_id, imageurl) VALUES ($1, $2, $3, $4) RETURNING game_id`,
     [game.name, game.description, game.developer, game.image]
   );
-  console.log(rows);
   const gameId = rows[0].game_id;
-  console.log(gameId);
   await Promise.all(
     game.genres.map(async (genre) => {
       await pool.query(
@@ -110,6 +108,13 @@ async function getGamesByCategory(id) {
 async function getGamesByDeveloper(id){
   const { rows } = await pool.query(`SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE d.developer_id = $1`, [id]);
   return rows;
+}
+
+async function getSomeGames(){
+  const { rows } = await pool.query(
+    "SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id"
+  );
+  return rows.slice(0, 5); 
 }
 module.exports = {
   getNumberGames,
