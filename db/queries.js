@@ -83,16 +83,20 @@ async function getCatId(names) {
 
 async function addGame(game) {
   const { rows } = await pool.query(
-    `INSERT INTO games (name, description, developer_id, imageurl) VALUES ('${game.name} ', '${game.description}', ${game.developer}, '${game.image}') RETURNING game_id`
+    `INSERT INTO games (name, description, developer_id, imageurl) VALUES ($1, $2, $3, $4) RETURNING game_id`,
+    [game.name, game.description, game.developer, game.image]
   );
   console.log(rows);
   const gameId = rows[0].game_id;
   console.log(gameId);
-  game.genres.forEach(async (genre) => {
-    await pool.query(
-      `INSERT INTO games_categories (game_id, category_id) VALUES (${gameId}, ${genre})`
-    );
-  });
+  await Promise.all(
+    game.genres.map(async (genre) => {
+      await pool.query(
+        `INSERT INTO games_categories (game_id, category_id) VALUES ($1, $2)`,
+        [gameId, genre]
+      );
+    })
+  );
 }
 
 async function addDeveloper(name) {
