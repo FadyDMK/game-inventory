@@ -17,7 +17,7 @@ async function getNumberGenres() {
 
 async function getGames() {
   const { rows } = await pool.query(
-    "SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id"
+    "SELECT g.name,g.description,g.imageurl,d.name AS developer, g.game_id AS id FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id"
   );
   return rows;
 }
@@ -102,19 +102,41 @@ async function addDeveloper(name) {
 }
 
 async function getGamesByCategory(id) {
-  const { rows } = await pool.query(`SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id JOIN games_categories AS gc ON g.game_id = gc.game_id WHERE gc.category_id = $1`, [id]);
+  const { rows } = await pool.query(
+    `SELECT g.name,g.description,g.imageurl,d.name AS developer ,g.game_id AS id FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id JOIN games_categories AS gc ON g.game_id = gc.game_id WHERE gc.category_id = $1`,
+    [id]
+  );
   return rows;
 }
-async function getGamesByDeveloper(id){
-  const { rows } = await pool.query(`SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE d.developer_id = $1`, [id]);
+async function getGamesByDeveloper(id) {
+  const { rows } = await pool.query(
+    `SELECT g.name,g.description,g.imageurl,d.name AS developer, g.game_id AS id FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE d.developer_id = $1`,
+    [id]
+  );
   return rows;
 }
 
-async function getSomeGames(){
+async function getSomeGames() {
   const { rows } = await pool.query(
-    "SELECT g.name,g.description,g.imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id"
+    "SELECT g.name,g.description,g.imageurl,d.name AS developer, g.game_id AS id FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id"
   );
-  return rows.slice(0, 5); 
+  return rows.slice(0, 5);
+}
+
+async function getGameById(id) {
+  const { rows } = await pool.query(
+    `SELECT g.name AS name,g.game_id AS id,g.description,g.imageurl AS imageurl,d.name AS developer FROM games AS g JOIN developers AS d ON g.developer_id = d.developer_id WHERE g.game_id = $1`,
+    [id]
+  );
+  return rows[0];
+}
+
+async function getGenresByGameId(id) {
+  const { rows } = await pool.query(
+    `SELECT c.name FROM categories AS c JOIN games_categories AS gc ON c.category_id = gc.category_id WHERE gc.game_id = $1`,
+    [id]
+  );
+  return rows;
 }
 module.exports = {
   getNumberGames,
@@ -134,4 +156,6 @@ module.exports = {
   getGamesByCategory,
   getGamesByDeveloper,
   getSomeGames,
+  getGameById,
+  getGenresByGameId,
 };

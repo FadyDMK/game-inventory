@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%=game.name%></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css" />
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <div class="content">
+      <div class="game-detail">
+        <div class="detail-img">
+          <img src="<%= game.imageurl %>" alt="<%= game.name %>" />
+        </div>
+        <div class="detail-content">
+          <h2><%= game.name %></h2>
+          <p><%= game.developer %></p>
+          <p><%= game.description %></p>
+          <div class="detail-genre">
+            <% genres.forEach(function(genre) { %>
+            <div><%= genre.name %></div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

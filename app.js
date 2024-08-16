@@ -6,6 +6,7 @@ const indexRouter = require('./routes/indexRoute');
 const path = require('path');
 const categoriesRouter = require('./routes/categoriesRoute');
 const newRoute = require('./routes/newRoute');
+const detailsRouter = require('./routes/detailsRouter');
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 app.use("/categories",categoriesRouter);
+app.use("/games",detailsRouter)
 
 app.use('/new',newRoute);
 
